@@ -71,11 +71,13 @@ const HeaderPage = (props: Props) => {
             <div className={style.box__header}>
                 <div className={style.box__menu__header}>
                     <div className={style.logo__header}>
-                        <Link href={'/'}>
-                            <h2 className='font-bold font-sans text-xl'>
+
+                        <h2 className='font-bold font-sans text-xl'>
+                            <Link href={'/'}>
                                 MyBlog
-                            </h2>
-                        </Link>
+                            </Link>
+                        </h2>
+
                     </div>
 
                     <nav className={style.box__nav}>

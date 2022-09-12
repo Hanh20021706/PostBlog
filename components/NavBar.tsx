@@ -13,11 +13,16 @@ const NavBar = (props: Props) => {
                         <div className="flex h-16 items-center justify-between">
                             <div className="flex items-center">
                                 <div className="flex-shrink-0">
-                                    <img className="h-8 w-8" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/New_Balance_logo.svg/2560px-New_Balance_logo.svg.png" alt="Workflow" />
+
+                                    <h2 className='font-bold font-sans text-xl text-[#fff]'>
+                                        <Link href={'/'}>
+                                            MyBlog
+                                        </Link>
+                                    </h2>
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-10 flex items-baseline space-x-4">
-                                      
+
                                         <Link href={"/"}>
                                             <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashborad</a>
 
