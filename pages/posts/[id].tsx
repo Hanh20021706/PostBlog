@@ -1,11 +1,14 @@
 import axios from 'axios'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { PostType } from '../../type/post'
 import stylle from '../../styles/Home.module.css'
 import Head from 'next/head'
+import prisma from '../../lib/prisma'
+
+
 import {
     FacebookShareButton,
     FacebookIcon,
@@ -18,10 +21,21 @@ import {
     TelegramShareButton,
     TelegramIcon,
 } from 'next-share';
+import Link from 'next/link'
 
 
 
-const DetailPost = () => {
+interface Posts {
+    posts: {
+        id?: number
+        title: string
+        content: string
+        image: string,
+        categories: string
+    }[]
+}
+
+const DetailPost = ({ posts }: Posts) => {
 
 
     const [post, setPost] = useState<any>()
@@ -102,14 +116,14 @@ const DetailPost = () => {
                                     <FacebookIcon size={32} round />
                                 </FacebookShareButton>
 
-                                <TwitterShareButton style={{margin: '0px 5px'}}
+                                <TwitterShareButton style={{ margin: '0px 5px' }}
                                     url={'https://post-blog-bice.vercel.app/'}
                                     title={'next-share is a social share buttons for your next React apps.'}
                                 >
                                     <TwitterIcon size={32} round />
                                 </TwitterShareButton>
 
-                                <FacebookMessengerShareButton style={{margin: '0px 5px'}}
+                                <FacebookMessengerShareButton style={{ margin: '0px 5px' }}
                                     url={'https://post-blog-bice.vercel.app/'}
                                     appId={''}
                                 >
@@ -123,7 +137,7 @@ const DetailPost = () => {
                                 >
                                     <EmailIcon size={32} round />
                                 </EmailShareButton>
-                                <TelegramShareButton style={{margin: '0px 5px'}}
+                                <TelegramShareButton style={{ margin: '0px 5px' }}
                                     url={'https://post-blog-bice.vercel.app/'}
                                     title={'next-share is a social share buttons for your next React apps.'}
                                 >
@@ -173,6 +187,51 @@ const DetailPost = () => {
 
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+            <div className="mx-auto max-w-2xl mt-2 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Featured Posts</h2>
+                <div className="mt-6 grid grid-cols-3 gap-x-8 gap-y-10">
+                    {posts.map((item: PostType, index: number) => (
+                        <div key={index} className="group relative">
+                            <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+                                <Link href={`/posts/${item.id}`}>
+                                    <a >
+                                        <img src={item.image} alt="Front of men's Basic Tee in black." className="h-full w-full object-cover object-center lg:h-full lg:w-full" />
+
+                                    </a>
+                                </Link>
+
+                            </div>
+                            <div className="mt-[10px] flex justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-cyan-600">{item.categories}</p>
+                                    <h3 className="text-sm text-gray-700 font-bold mt-[10px]">
+
+                                        <Link href={`/posts/${item.id}`}>
+                                            <a >
+
+                                                <span aria-hidden="true" className="absolute inset-0" />
+                                                {item.title}
+                                            </a>
+                                        </Link>
+                                    </h3>
+                                    {/* <p className="mt-1 text-sm text-gray-500">{item.content}</p> */}
+                                </div>
+
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+            </div>
         </div>
 
 
@@ -182,3 +241,24 @@ export default DetailPost
 
 
 
+export const getServerSideProps: GetServerSideProps = async () => {
+    const posts = await prisma.post.findMany({
+        take: 3,
+        select: {
+            title: true,
+            id: true,
+            content: true,
+            categories: true,
+            image: true
+        },
+        orderBy: {
+            views: "desc"
+        }
+    })
+
+    return {
+        props: {
+            posts
+        }
+    }
+}
