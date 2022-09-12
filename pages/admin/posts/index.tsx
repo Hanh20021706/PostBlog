@@ -24,15 +24,34 @@ const PostList = () => {
     const [array, setArray] = useState<any>({ page: 0, title: "undefined", categories: "undefined" })
 
 
-    async function deleteItem(id: number) {
-        const conform = window.confirm("Bạn có chắc chắn xóa ?")
-        if (conform) {
-            const { data } = await axios.delete(`/api/posts/${id}`)
-            toast.success("xóa thành công")
-            setPostList(data?.filter((item: any) => item.id !== id))
 
+    // list data post
+    useEffect(() => {
+        const getAll = async () => {
+            const { data } = await axios.get('/api/posts')
+            setPostList(data)
         }
+        getAll()
+    }, [])
+
+    const removeItem = async (id:number) => {
+        const confirm = window.confirm("Bạn có chắc chắn xóa bài viết không?")
+        if(confirm){
+            const {data} = await axios.delete(`/api/posts/${id}`)
+            toast.success("xóa thành công")
+        }   
     }
+
+    // const deleteItem = async (id: number) => {
+    //     const conform = window.confirm("Bạn có chắc chắn xóa ?")
+    //     if (conform) {
+    //         const { data } = await axios.delete(`/api/posts/${id}`)
+    //         toast.success("xóa thành công")
+    //         setPostList(postList.filter((item: any) => item.id !== item.id))
+    //         // setPostList(postList.)
+    //     }
+    // }
+
 
 
     const { register, handleSubmit } = useForm<InpSearch>()
@@ -81,15 +100,6 @@ const PostList = () => {
 
     }
 
-
-    // list data post
-    useEffect(() => {
-        const getAll = async () => {
-            const { data } = await axios.get('/api/posts')
-            setPostList(data)
-        }
-        getAll()
-    }, [])
 
     // console.log("list", postList);
 
@@ -195,7 +205,7 @@ const PostList = () => {
                                                         </Link>
                                                     </td>
                                                     <td className="px-4 text-center py-4 ">
-                                                        <button type="button" onClick={() => deleteItem(item.id as number)} className=" btn btn-remove text-rose-600">
+                                                        <button type="button" onClick={() => removeItem(item.id)} className=" btn btn-remove text-rose-600">
                                                             Delete
                                                         </button>
                                                     </td>

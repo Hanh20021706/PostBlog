@@ -85,7 +85,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             image: true
         },
         orderBy: {
-            views: 'desc'
+            id: "desc"
         }
     })
 
