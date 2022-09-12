@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.img__baner__page{
+    width: 100%;
+    height: 600px !important;
+  }

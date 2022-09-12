@@ -1,0 +1,82 @@
+.header__page {
+  @apply relative bg-[#F4F6F6] ;
+}
+.box__nav a{
+  font-weight: 500;
+}
+.nav__login a {
+  font-weight: 500;
+}
+.box__header {
+  @apply mx-auto max-w-7xl px-4 sm:px-6;
+}
+.logo__header {
+  @apply flex justify-start lg:w-0 lg:flex-1;
+}
+.box__menu__header {
+  @apply flex items-center justify-between py-4 md:justify-start md:space-x-10;
+}
+
+.box__nav {
+  @apply hidden space-x-10 md:flex;
+}
+.nav__login {
+  @apply hidden items-center justify-end md:flex md:flex-1 lg:w-0;
+}
+
+.box__search {
+  margin: 20px 0px;
+}
+
+.inp__search {
+    border: 1px solid #ccc;
+    outline: none;
+    width: 500px;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+.btn__search {
+    background-color: #4f46e5;
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 3px;
+    margin-left: 1px;
+}
+.list__nav{
+  margin-top: 20px;
+}
+.list__nav li{
+    list-style: none;
+}
+
+.list__cmt{
+  margin-top: 20px;
+}
+.list__cmt li{
+  list-style: none;
+  font-weight: 500;
+  
+}
+.list__cmt span{
+  font-weight: 400;
+  color: #000;
+  margin-left: 20px;
+}
+.box__btn__cmt{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.inp__cmt{
+  outline: none;
+  border: 1px solid #000;
+  padding: 2px 10px;
+  border-radius: 2px;
+  width: 400px;
+}
+.btn__cmt{
+  background-color: #34495E;
+  padding: 3px 10px;
+  border-radius: 2px;
+  color: #fff;
+}
