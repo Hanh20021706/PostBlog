@@ -22,14 +22,13 @@ const SigninPage = () => {
             email: item.email,
             password: item.password
         })
-        console.log("data" , data);
-        console.log("item" , item);
-        
+        console.log("data", data);
+        console.log("item", item);
+
         if (data) {
             route.push("/")
             toast.success('ban da dang nhap thanh cong')
         }
-    
 
     }
     return (

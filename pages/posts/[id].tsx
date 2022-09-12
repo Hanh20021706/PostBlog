@@ -6,6 +6,18 @@ import { useForm } from 'react-hook-form'
 import { PostType } from '../../type/post'
 import stylle from '../../styles/Home.module.css'
 import Head from 'next/head'
+import {
+    FacebookShareButton,
+    FacebookIcon,
+    TwitterShareButton,
+    TwitterIcon,
+    FacebookMessengerIcon,
+    FacebookMessengerShareButton,
+    EmailShareButton,
+    EmailIcon,
+    TelegramShareButton,
+    TelegramIcon,
+} from 'next-share';
 
 
 
@@ -25,11 +37,11 @@ const DetailPost = () => {
         if (id) {
             const getDetail = async (id: number) => {
                 const { data } = await axios.get(`/api/posts/${id}`)
-                console.log('view' , data);
-                
-                const {data: listPost} = await axios.patch(`/api/posts/${id}?views=${data.views}`)    
-                console.log('list' ,listPost );
-                
+                console.log('view', data);
+
+                const { data: listPost } = await axios.patch(`/api/posts/${id}?views=${data.views}`)
+                console.log('list', listPost);
+
                 // console.log("data detail :", data);
                 setPost(listPost)
             }
@@ -41,31 +53,31 @@ const DetailPost = () => {
         //     const detailViews = await axios.get(`/api/posts/${id}`)
 
         //     const {data} = await axios.patch(`/api/posts/${id}?views=${detailViews.data.views}`)      
-             
+
         //     setPost(data)
         // }
         // viewPost(Number(id))
     }, [id])
     return (
         <div>
-             <Head>
+            <Head>
                 <title>
                     Chi tiết bài viết
                 </title>
                 <meta content="text/html; charset=utf-8" />
-                <meta  name='description' content='danh sách bài viết'/>
+                <meta name='description' content='danh sách bài viết' />
                 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
             </Head>
 
             <div className=" w-8/12 m-auto flex  items-center overflow-hidden bg-white px-4 pt-14 pb-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
 
                 <div className="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
-                    
+
                     <div className="aspect-w-2 aspect-h-3 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                         <img src={post?.image} alt="Two each of gray, white, and black shirts arranged on table." className="object-cover object-center" />
                     </div>
                     <div className="sm:col-span-8 lg:col-span-7">
-                    <p className="text-sm font-medium text-cyan-600">{post?.categories}</p>
+                        <p className="text-sm font-medium text-cyan-600">{post?.categories}</p>
                         <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">  {post?.title}</h2>
                         <p className="text-sm font-medium text-red-600	">{post?.user?.name}</p>
 
@@ -78,17 +90,45 @@ const DetailPost = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
 
-                               {post?.views}
+                                {post?.views}
 
                             </li>
                             <li>
+                                <FacebookShareButton style={{ margin: '10px 0px' }}
+                                    url={'https://post-blog-bice.vercel.app/'}
+                                    quote={'next-share is a social share buttons for your next React apps.'}
+                                    hashtag={'#nextshare'}
+                                >
+                                    <FacebookIcon size={32} round />
+                                </FacebookShareButton>
 
-                                <svg style={{ display: 'unset', marginRight: '10px' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-                                </svg>
+                                <TwitterShareButton style={{margin: '0px 5px'}}
+                                    url={'https://post-blog-bice.vercel.app/'}
+                                    title={'next-share is a social share buttons for your next React apps.'}
+                                >
+                                    <TwitterIcon size={32} round />
+                                </TwitterShareButton>
 
+                                <FacebookMessengerShareButton style={{margin: '0px 5px'}}
+                                    url={'https://post-blog-bice.vercel.app/'}
+                                    appId={''}
+                                >
+                                    <FacebookMessengerIcon size={32} round />
+                                </FacebookMessengerShareButton>
 
-                                chia sẻ
+                                <EmailShareButton
+                                    url={'https://post-blog-bice.vercel.app/'}
+                                    subject={'Next Share'}
+                                    body="body"
+                                >
+                                    <EmailIcon size={32} round />
+                                </EmailShareButton>
+                                <TelegramShareButton style={{margin: '0px 5px'}}
+                                    url={'https://post-blog-bice.vercel.app/'}
+                                    title={'next-share is a social share buttons for your next React apps.'}
+                                >
+                                    <TelegramIcon size={32} round />
+                                </TelegramShareButton>
                             </li>
 
                             <li>
