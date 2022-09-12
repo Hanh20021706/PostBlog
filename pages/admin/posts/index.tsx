@@ -25,11 +25,11 @@ const PostList = () => {
 
 
     async function deleteItem(id: number) {
-        const conform = window.confirm("are you sure ?")
+        const conform = window.confirm("Bạn có chắc chắn xóa ?")
         if (conform) {
             const { data } = await axios.delete(`/api/posts/${id}`)
-            toast.success("xoa thanh cong")
-            setPostList(postList.filter((item: any) => item.id !== id))
+            toast.success("xóa thành công")
+            setPostList(data?.filter((item: any) => item.id !== id))
 
         }
     }

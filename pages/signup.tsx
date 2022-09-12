@@ -22,7 +22,7 @@ const SignupPage = () => {
         })
         console.log("data",);
         route.push('/signin')
-        toast.success("dang ky thanh cong")
+        toast.success("Đăng ký thành công")
  
         //    create(data)
 

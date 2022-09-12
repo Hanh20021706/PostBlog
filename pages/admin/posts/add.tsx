@@ -44,7 +44,7 @@ const AddPost = () => {
         const { data } = await axios.post("/api/posts", { ...value, userId: user.dataUser.id })
         if (data) {
             route.push('/admin/posts')
-            toast.success("ban da them thanh cong")
+            toast.success("thêm bài viết thành công")
         }
 
     }

@@ -23,7 +23,7 @@ const EditPost = (props: Props) => {
         const {data} = await axios.patch(`/api/posts/${id}` , {title : post.title , content: post.content , image : post.image, categories: post.categories})
         console.log("data" , data)
         route.push("/admin/posts")
-        toast.success("da sua bai viet thanh cong")
+        toast.success("sửa bài viết thành công")
 
     }
     useEffect(() => {

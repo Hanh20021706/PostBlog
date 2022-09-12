@@ -25,7 +25,7 @@ const Home = ({ posts }: Posts) => {
             <BannerPage />
 
             <div className="bg-white">
-                <div className="mx-auto max-w-2xl mt-2 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                <div className="mx-auto max-w-2xl mt-2 px-4 sm:py-[50px] sm:px-6 lg:max-w-7xl lg:px-8">
                     <h2 className="text-lg  font-mono font-semibold tracking-tight text-gray-900 text-center">Most featured post</h2>
                     <div className="mt-6 grid grid-cols-2 gap-[20px]">
                         {posts?.map((item: any, index: number) => (

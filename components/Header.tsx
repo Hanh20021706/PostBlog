@@ -32,7 +32,7 @@ const HeaderPage = (props: Props) => {
             deleteCookie('cookieUser');
             setUser(undefined)
             route.push('/signin')
-            toast.success("ban da dang xuat tai khoan ")
+            toast.success("Đăng xuất thành công ")
         }
     }
 
