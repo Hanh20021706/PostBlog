@@ -11,6 +11,7 @@ import {
   listPostParam,
   listViews,
 } from "../../../serverPrisma/post";
+import { verify } from "crypto";
 
 interface QueryParam {
   [key: string]: QueryParam | string;
@@ -22,6 +23,19 @@ export default async function handler(
 ) {
   const post = req.body;
   if (req.method === "POST") {
+    const headersCookie = req.headers.cookie;
+
+    console.log("headercooke", headersCookie);
+    if (!headersCookie) return res.status(401);
+    const cookieParsed = cookie.parse(headersCookie);
+    console.log("cookieVetify", cookieParsed);
+
+    const userToken = cookieParsed["cookieUser"];
+    console.log("userToken", userToken);
+
+    console.log('role ', post.dataUser.role);
+    
+
     console.log("post add", post);
     const postAdd = await prisma.post.create({
       data: post,
@@ -33,23 +47,23 @@ export default async function handler(
     console.log("error");
   }
   if (req.method === "GET") {
-    const { title, categories, page, listPost , viewsPage} = req.query;
+    const { title, categories, page, listPost, viewsPage } = req.query;
 
-    // list post`   
+    // list post`
     if (listPost) {
       const { listPosts, count } = await listAllPosts();
       return res.status(200).json({ listPosts, count });
     }
 
     // list views
-    if(viewsPage){
-      const {listPostView} = await listViews(Number(viewsPage))
-      return res.status(200).json({listPostView})
+    if (viewsPage) {
+      const { listPostView } = await listViews(Number(viewsPage));
+      return res.status(200).json({ listPostView });
     }
 
     // get categories and title
     if (categories != "undefined" || title != "undefined") {
-      const condion = displayPost( String(title) ,String(categories));
+      const condion = displayPost(String(title), String(categories));
       const { postList, count } = await listPostParam(Number(page), condion);
 
       return res.status(200).json({ postList, count });
@@ -57,14 +71,15 @@ export default async function handler(
       const { postList, count } = await getPostsAdmin(Number(page));
       return res.status(200).json({ postList, count });
     }
-  } else {`                                                         `
+  } else {
+    `                                                         `;
     console.log("sai roi nha");
   }
 }
 
 const displayPost = (title: string, categories: string) => {
-    console.log('search item' , title);
-    
+  console.log("search item", title);
+
   let condion: QueryParam = {};
 
   if (title == "undefined") {
@@ -79,7 +94,7 @@ const displayPost = (title: string, categories: string) => {
         mode: "insensitive",
       },
     };
-}
+  }
 
   if (categories == "undefined") {
     condion = {
