@@ -40,12 +40,38 @@ const AddPost = () => {
 
     const onSubmit = async (value: any) => {
         console.log("value", value);
-
-        const { data } = await axios.post("/api/posts", { ...value, userId: user.dataUser.id })
-        if (data) {
+        if (user.dataUser?.role == 'ADMIN') {
             route.push('/admin/posts')
+            console.log('user role', user.role);
+
             toast.success("thêm bài viết thành công")
         }
+        if (user.dataUser?.role !== 'ADMIN') {
+            toast.warning("Hãy đăng ký tài khoản VIP để thêm bài viết")
+
+            setTimeout(() => {
+                route.push("/")
+            }, 2000);
+            console.log('role user', user.role);
+            console.log('error');
+            
+            return;
+        }
+        const { data } = await axios.post("/api/posts", { ...value, userId: user.dataUser.id })
+        console.log('data role', user.dataUser);
+        console.log('data', data);
+
+
+        // if(data.dataUser?.role != 'ADMIN'){  
+        //     toast.warning("ban khong co quyen them")
+        //     console.log('error');
+
+        // }
+
+        // if (data) {
+        //     // route.push('/admin/posts')
+        //     toast.success("thêm bài viết thành công")
+        // }
 
     }
     return (

@@ -22,21 +22,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const post = req.body;
-  if (req.method === "POST") {
-    const headersCookie = req.headers.cookie;
-
-    console.log("headercooke", headersCookie);
-    if (!headersCookie) return res.status(401);
-    const cookieParsed = cookie.parse(headersCookie);
-    console.log("cookieVetify", cookieParsed);
-
-    const userToken = cookieParsed["cookieUser"];
-    console.log("userToken", userToken);
-
-    console.log('role ', post.dataUser.role);
-    
-
-    console.log("post add", post);
+  if (req.method === "POST") {                                          
     const postAdd = await prisma.post.create({
       data: post,
     });
@@ -60,7 +46,7 @@ export default async function handler(
       const { listPostView } = await listViews(Number(viewsPage));
       return res.status(200).json({ listPostView });
     }
-
+    //vay cai user dau
     // get categories and title
     if (categories != "undefined" || title != "undefined") {
       const condion = displayPost(String(title), String(categories));

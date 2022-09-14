@@ -10,50 +10,59 @@ import prisma from './../../../lib/prisma'
 import style from '../../../styles/Home.module.css'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { getPostList } from '../../../client/post'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from '../../../redux/useSlice'
 
 type InpSearch = {
     title: string
 }
 
 const PostList = () => {
-    // console.log("list post :", posts);
+
+    const dispatch = useDispatch()
+
+    const user = useSelector((item: any) => item.user)
+    console.log('user', user);
+    
 
     const [postList, setPostList] = useState<any>([])
 
     const [page, setPage] = useState<number>(0)
     const [array, setArray] = useState<any>({ page: 0, title: "undefined", categories: "undefined" })
 
-
-
-    // list data post
     useEffect(() => {
         const getAll = async () => {
             const { data } = await axios.get('/api/posts')
             setPostList(data)
         }
         getAll()
+
+        const userPost = async () => {
+            const { payload } = await dispatch(getUser())
+            console.log('payload', payload);
+
+        }
+        userPost()
     }, [])
 
-    const removeItem = async (id:number) => {
-        const confirm = window.confirm("Bạn có chắc chắn xóa bài viết không?")
-        if(confirm){
-            const {data} = await axios.delete(`/api/posts/${id}`)
-            toast.success("xóa thành công")
-        }   
+    const removeItem = async (id: number) => {
+        if (user.value.dataUser?.role == "ADMIN") {
+            console.log('role user' , user.dataUser);
+            
+            const confirm = window.confirm("Bạn có chắc chắn xóa bài viết không?")
+            if (confirm) {
+                const { data } = await axios.delete(`/api/posts/${id}`)
+                toast.success("xóa thành công")
+            }
+        }
+        if(user.value.dataUser?.role != "ADMIN"){
+            toast.warning("Bạn không có quyền xóa")
+            console.log('error');
+            return;
+            
+        }
+
     }
-
-    // const deleteItem = async (id: number) => {
-    //     const conform = window.confirm("Bạn có chắc chắn xóa ?")
-    //     if (conform) {
-    //         const { data } = await axios.delete(`/api/posts/${id}`)
-    //         toast.success("xóa thành công")
-    //         setPostList(postList.filter((item: any) => item.id !== item.id))
-    //         // setPostList(postList.)
-    //     }
-    // }
-
-
-
     const { register, handleSubmit } = useForm<InpSearch>()
 
     const onSubmit: SubmitHandler<InpSearch> = async (item: InpSearch) => {

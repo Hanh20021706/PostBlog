@@ -2,38 +2,66 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import adminLayout from '../../../components/layout/adminLayout'
+import { getUser } from '../../../redux/useSlice'
 import { PostType } from '../../../type/post'
 
 type Props = {}
 
 const EditPost = (props: Props) => {
 
+    const dispatch = useDispatch()
+
     const route = useRouter()
 
-    const {id} = route.query
+    const { id } = route.query
 
 
-    const {register, handleSubmit, formState:{errors} , reset} = useForm<PostType>()
+    const user = useSelector((item: any) => item.user)
+    console.log('user', user);
 
-    const onSubmit:SubmitHandler<PostType> = async (post : any) => {
-        console.log(post)   
-        
-        const {data} = await axios.patch(`/api/posts/${id}` , {title : post.title , content: post.content , image : post.image, categories: post.categories})
-        console.log("data" , data)
-        route.push("/admin/posts")
-        toast.success("sửa bài viết thành công")
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<PostType>()
+
+    const onSubmit: SubmitHandler<PostType> = async (post: any) => {
+        console.log(post)
+        if (user.value.dataUser?.role == "ADMIN") {
+            const { data } = await axios.patch(`/api/posts/${id}`, { title: post.title, content: post.content, image: post.image, categories: post.categories })
+            // console.log("data", data)
+            route.push("/admin/posts")
+            toast.success("sửa bài viết thành công")
+        }
+        if (user.value.dataUser?.role !== "ADMIN") {
+            toast.warning("Bạn không có quyền sửa")
+            setTimeout(() => {
+                route.push("/posts")
+             
+            }, 2000);
+           
+            console.log('error');
+            return;
+        }
+
+
 
     }
     useEffect(() => {
-        if(id){
-            const getPost = async (id : number) => {
-                const { data} = await axios.get(`/api/posts/${id}`) 
+        if (id) {
+            const getPost = async (id: number) => {
+                const { data } = await axios.get(`/api/posts/${id}`)
                 reset(data)
-                console.log("data get post" , data)
+                console.log("data get post", data)
             }
             getPost(Number(id))
+
+            const userPost = async () => {
+                const { payload } = await dispatch(getUser())
+                console.log('payload', payload);
+
+            }
+            userPost()
         }
     }, [id])
 

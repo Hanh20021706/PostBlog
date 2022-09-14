@@ -51,6 +51,7 @@ const DetailPost = ({ posts }: Posts) => {
         if (id) {
             const getDetail = async (id: number) => {
                 const { data } = await axios.get(`/api/posts/${id}`)
+
                 console.log('view', data);
 
                 const { data: listPost } = await axios.patch(`/api/posts/${id}?views=${data.views}`)
@@ -72,6 +73,11 @@ const DetailPost = ({ posts }: Posts) => {
         // }
         // viewPost(Number(id))
     }, [id])
+
+    if(!post){
+        return <div>Loading ....</div>
+    }
+
     return (
         <div>
             <Head>
