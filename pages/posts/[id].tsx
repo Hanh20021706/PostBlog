@@ -89,7 +89,7 @@ const DetailPost = ({ posts }: Posts) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
             </Head>
 
-            <div className=" w-8/12 m-auto flex  items-center overflow-hidden bg-white px-4 pt-14 pb-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+            <div className=" w-8/12 m-auto flex mt-[40px] items-center overflow-hidden bg-white px-4 pt-14 pb-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
 
                 <div className="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
 
