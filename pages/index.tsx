@@ -16,6 +16,9 @@ interface Posts {
 
 
 const Home = ({ posts }: Posts) => {
+
+    
+
     console.log('data', posts);
 
     return (

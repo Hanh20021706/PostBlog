@@ -1,9 +1,31 @@
-import React from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import adminLayout from '../../components/layout/adminLayout'
+import { getUser } from '../../redux/useSlice'
 
 type Props = {}
 
 const AdminPage = (props: Props) => {
+    const route = useRouter()
+
+    const dispatch = useDispatch()
+
+    // const userRouter = useSelector((item:any) => item.user)
+    // console.log("userRouter" , userRouter);
+    
+
+    const userDetail = async () => {
+        const { payload } = await dispatch(getUser())
+        console.log("payload", payload);
+        if (payload.dataUser.role === "USER") {
+            route.push("/")
+        }
+    }
+    userDetail();
+ 
+
     return (
         <div>
             <header className="bg-white shadow">

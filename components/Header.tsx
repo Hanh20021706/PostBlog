@@ -5,8 +5,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import style from '../styles/Home.module.css'
 import { toast } from 'react-toastify';
-
-
+import Home from '../pages';
 
 type Props = {}
 
@@ -16,11 +15,12 @@ const HeaderPage = (props: Props) => {
 
     const [user, setUser] = useState<any>(null)
 
-
     useEffect(() => {
         const userDetail = async () => {
             const { data } = await axios.get("/api/user/signin");
-            setUser(data)
+            console.log('data user', data);
+        
+            setUser(data) 
         }
         userDetail();
     }, [route.pathname])
@@ -56,8 +56,6 @@ const HeaderPage = (props: Props) => {
                         {user?.dataUser?.role == 'ADMIN' ? <Link href="/admin/posts">Admin</Link> : ""}
                     </nav>
                     <div className={style.nav__login}>
-
-
                         <a > {user?.message !== "het han cookie" ? ` ${user?.dataUser?.name}` : ""}</a>
                         {!user?.dataUser ? <Link href="/signin"><a style={{ marginRight: '10px' }}>Đăng nhập</a></Link> : ""}
                         {!user?.dataUser ? <Link href="/signup">Đăng kí</Link> : ""}

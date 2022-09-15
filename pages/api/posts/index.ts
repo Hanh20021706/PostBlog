@@ -25,6 +25,7 @@ export default async function handler(
     var cookies = cookie.parse(headerCookie || "");
     if (cookies.cookieUser) {
       var codeUser:any = jwt.verify(`${cookies.cookieUser}`, "123456");
+      console.log('codeUser', codeUser);
       if (codeUser.dataUser.role == "ADMIN") {
         const postAdd = await prisma.post.create({
           data: {

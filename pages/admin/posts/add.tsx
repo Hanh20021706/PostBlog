@@ -46,7 +46,7 @@ const AddPost = () => {
             console.log('error', error.response.data);
             toast.error("Đăng nhập tài khoản VIP để thêm bài viết")
             setTimeout(() => {
-                route.push("/")
+                // route.push("/")
             }, 2000);
         }
 

@@ -45,6 +45,7 @@ export default async function handler(
         // time cookie
       });
       res.setHeader("user", token);
+      console.log(token)
     }
 
     return res.status(200).json("dang nhap tai khoan thanh cong");
