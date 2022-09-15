@@ -17,9 +17,6 @@ export default async function handler(
     var cookies = cookie.parse(headerCookie || "");
     if (cookies.cookieUser) {
       var codeUser: any = jwt.verify(`${cookies.cookieUser}`, "123456");
-      // console.log('codeUser22222222222222' , codeUser);
-
-      // return res.status(200).json(codeUser);
       if (codeUser.dataUser.role == "ADMIN") {
         const post = await prisma.post.delete({
           where: { id: Number(postId) },
@@ -58,9 +55,6 @@ export default async function handler(
     var cookies = cookie.parse(headerCookie || "");
     if (cookies.cookieUser) {
       var codeUser: any = jwt.verify(`${cookies.cookieUser}`, "123456");
-      // console.log("cookieUser5555555555555" , codeUser);
-
-      // return res.status(200).json(codeUser);
       if (codeUser.dataUser.role == "ADMIN") {
         if (data) {
           const editPost = await prisma.post.update({

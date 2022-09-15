@@ -13,9 +13,3 @@ export const getPostList = async (arrayItem :any) => {
     }
 }
 
-// export const getPosts = async (arrayPost :any) => {
-//     console.log('categories' ,arrayPost );
-    
-//     const {data} = await axios.get(`/api/posts?page=${arrayPost.page}&title=${arrayPost.title}&categories=${arrayPost.categories}`);
-//     return {data}
-// }

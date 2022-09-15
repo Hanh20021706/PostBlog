@@ -54,8 +54,6 @@ export default async function handler(
     const infoUser = req.headers.cookie;
 
     var cookies = cookie.parse(infoUser || "");
-    // console.log("code cookie", cookies.cookieUser);
-
     if (cookies.cookieUser) {
       var codeUser = jwt.verify(`${cookies.cookieUser}`, "123456");
 

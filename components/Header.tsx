@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import style from '../styles/Home.module.css'
 import { toast } from 'react-toastify';
 
-// import img from '../assets/1082122.jpg'
+
 
 type Props = {}
 
@@ -18,10 +18,8 @@ const HeaderPage = (props: Props) => {
 
 
     useEffect(() => {
-        // console.log(user.role);
         const userDetail = async () => {
             const { data } = await axios.get("/api/user/signin");
-            // console.log('data', data);
             setUser(data)
         }
         userDetail();
@@ -36,35 +34,7 @@ const HeaderPage = (props: Props) => {
         }
     }
 
-    // console.log('user', user);
-
-    // console.log(user);
-
-    // useEffect(() => {
-    //     // console.log('role' , user.role);
-
-    //     const userInfo = async () => {
-
-    //         const { data } = await axios.get('/api/user/signin')
-    //         console.log("data", data)
-    //         setUser(data)
-    //     }
-    //     userInfo()
-    // }, [route.pathname])
-
-    // const logOut = () => {
-    //     const conform = window.confirm("are you sure?")
-
-    //     if (conform) {
-    //         deleteCookie('cookieUser');
-    //         setUser(undefined)
-    //         route.push('/signin')
-    //     }
-    // }
-
-    // console.log("user", user)
-
-
+  
 
     return (
         <div className={style.header__page}>
@@ -83,8 +53,7 @@ const HeaderPage = (props: Props) => {
                     <nav className={style.box__nav}>
                         <Link href={'/'}> Home</Link>
                         <Link href={'/posts'}> Post</Link>
-                        {/* <Link href={'/admin'}>Admin</Link> */}
-                        {user?.dataUser?.role == 'ADMIN' ? <Link href="/admin">Admin</Link> : ""}
+                        {user?.dataUser?.role == 'ADMIN' ? <Link href="/admin/posts">Admin</Link> : ""}
                     </nav>
                     <div className={style.nav__login}>
 
@@ -97,16 +66,6 @@ const HeaderPage = (props: Props) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                             </svg>
                         </button> : ""}
-
-                        {/* <Link href={'/signin'}> sigin in</Link>
-                        <Link href={'/signup'}><a className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">Sign up</a></Link> */}
-                        {/* <a href="">
-                            {user?.message !== "" ? `${'xin chao ' + user?.name}` : ""}
-                        </a>
-                        {!user ? <Link href={'/signin'}> sigin in</Link> : ""}
-                        {!user ? <Link href={'/signup'}><a className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">Sign up</a></Link> : ""}
-                        {user?.message !== "" ? <button onClick={() => logOut()}>Log out</button> : ""} */}
-
                     </div>
                 </div>
             </div>

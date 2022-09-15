@@ -50,16 +50,11 @@ const Home = ({ posts }: Posts) => {
 
 
                                         </h3>
-                                        {/* <p className="mt-1 text-sm text-gray-500">{item.content}</p> */}
                                     </div>
 
                                 </div>
                             </div>
                         ))}
-
-
-
-
                     </div>
                 </div>
             </div>

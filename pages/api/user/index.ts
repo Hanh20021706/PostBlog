@@ -10,8 +10,6 @@ export default async function handler(
   console.log(dataUser);
   try {
     if (req.method === "GET") {
-      // const infoUser = req.headers.cookie
-      // var cookies = cookie.parse(infoUser || '')
       return res.json({ message: "log out" });
     }
   } catch (error) {

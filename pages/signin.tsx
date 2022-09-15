@@ -17,9 +17,7 @@ const SigninPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<inputUser>()
 
     const onSubmit: SubmitHandler<inputUser> = async (item) => {
-        // console.log("user", data)
          try {
-            // console.log("user", data)
             const { data } = await axios.post("/api/user/signin", {
                 email: item.email,
                 password: item.password
@@ -27,17 +25,10 @@ const SigninPage = () => {
             console.log('dataaaaaaaaa: ', data)
             route.push("/")
             toast.success('Đăng nhập thành công')
-            // console.log("data", data);
-            // console.log("item", item);
         } catch (error: any) {
             console.log('error', error.response.data.message);
             toast.error("Lỗi đăng nhập")
         }
-
-        // if (data) {
-        //     route.push("/")
-        //     toast.success('Đăng nhập thành công')
-        // }
     }
     return (
         <div>

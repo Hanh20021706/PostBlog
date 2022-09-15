@@ -44,9 +44,6 @@ const DetailPost = ({ posts }: Posts) => {
 
     const { id } = route.query
 
-    // console.log("id detail", id);
-
-
     useEffect(() => {
         if (id) {
             const getDetail = async (id: number) => {
@@ -56,22 +53,10 @@ const DetailPost = ({ posts }: Posts) => {
 
                 const { data: listPost } = await axios.patch(`/api/posts/${id}?views=${data.views}`)
                 console.log('list', listPost);
-
-                // console.log("data detail :", data);
                 setPost(listPost)
             }
-
             getDetail(Number(id));
         }
-
-        // const viewPost = async(id :number) => {
-        //     const detailViews = await axios.get(`/api/posts/${id}`)
-
-        //     const {data} = await axios.patch(`/api/posts/${id}?views=${detailViews.data.views}`)      
-
-        //     setPost(data)
-        // }
-        // viewPost(Number(id))
     }, [id])
 
     if(!post){

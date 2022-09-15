@@ -11,26 +11,19 @@ const SignupPage = () => {
     const route = useRouter()
 
     const { register, handleSubmit, formState: { errors } } = useForm<UserType>()
-
-
     const onSubmit: SubmitHandler<UserType> = async (item) => {
-
         try {
             const { data } = await axios.post("/api/user/signup", {
                 email: item.email,
                 name: item.name,
                 password: item.password
             })
-            // console.log("data",);
             route.push('/signin')
             toast.success("Đăng ký thành công")
         } catch (error: any) {
             console.log('error', error.response.data);
-            // alert("tai khoan da ton tai")
             toast.error("Emial khoản đã tồn tại")
         }
-        //    create(data)
-
     }
 
     return (

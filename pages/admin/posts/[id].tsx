@@ -20,7 +20,6 @@ const EditPost = (props: Props) => {
 
 
     const user = useSelector((item: any) => item.user)
-    // console.log('user', user);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<PostType>()
 
@@ -34,7 +33,7 @@ const EditPost = (props: Props) => {
             console.log('error' , error.response.data);
             toast.error("Bạn không có quyền sửa")
             setTimeout(() => {
-                // route.push("/")
+                route.push("/")
             }, 2000);
         }
 

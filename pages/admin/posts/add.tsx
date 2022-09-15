@@ -32,7 +32,6 @@ const AddPost = () => {
         const userPost = async () => {
             const { payload } = await dispatch(getUser())
             console.log('payload', payload);
-            // console.log("data user" , data);
         }
         userPost()
     }, [])
@@ -51,8 +50,6 @@ const AddPost = () => {
             setTimeout(() => {
                 route.push("/")
             }, 2000);
-            // alert(error.response.data)
-
         }
 
        

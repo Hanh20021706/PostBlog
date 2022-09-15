@@ -38,10 +38,6 @@ export const postSlice = createSlice({
           state.postList = state.postList.map((post) =>
             post.id === id ? { ...post, title, categories, content } : post
           ); 
-
-      // state.todoList.map((item: TodoType) =>
-      //   item.id == action.payload.id ? (item = action.payload) : item
-      // );
     },
   },
 });

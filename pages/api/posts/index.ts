@@ -43,8 +43,6 @@ export default async function handler(
       } else {
         return res.status(404).json("ban khong co quyen");
       }
-
-      // return res.status(200).json(codeUser);
     }
   } else {
     console.log("error");
@@ -75,7 +73,6 @@ export default async function handler(
       return res.status(200).json({ postList, count });
     }
   } else {
-    `                                                         `;
     console.log("sai roi nha");
   }
 }

@@ -74,18 +74,14 @@ const PostList = () => {
         console.log('item', item);
         array.page = 0
         setArray({ ...array })
-        // console.log('array', array);
-
         const { data } = await getPostList(array)
         setPostList(data)
-        // console.log("data search", data.postList);
     }
 
 
 
     // pading list post
     const nextPage = async (index: number) => {
-        // console.log("index",);
         setPage(index)
         array.page = index
         setArray({ ...array })
@@ -105,7 +101,6 @@ const PostList = () => {
         setArray({ ...array })
         const { data } = await getPostList(array)
         setPostList(data)
-        console.log('categories', data);
 
     }
     return (
@@ -229,7 +224,6 @@ const PostList = () => {
                         <Link href="/admin/posts/add">
                             <a className="sm:ml-3">
                                 <button type="button" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    {/* Heroicon name: solid/check */}
                                     <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                     </svg>
@@ -255,7 +249,6 @@ const PostList = () => {
 
                             <div className={`relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 ${page + 1 >= Number(postList.count / 3) ? 'hidden' : ""}`} onClick={() => nextPage(Number(page) + 1)}>
                                 <span className="sr-only">Next</span>
-                                {/* Heroicon name: mini/chevron-right */}
                                 <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
                                 </svg>
