@@ -20,10 +20,11 @@ type InpSearch = {
 const PostList = () => {
 
     const dispatch = useDispatch()
+    const route = useRouter()
 
     const user = useSelector((item: any) => item.user)
     console.log('user', user);
-    
+
 
     const [postList, setPostList] = useState<any>([])
 
@@ -40,35 +41,37 @@ const PostList = () => {
         const userPost = async () => {
             const { payload } = await dispatch(getUser())
             console.log('payload', payload);
-
         }
         userPost()
     }, [])
 
+    // remove item post
     const removeItem = async (id: number) => {
-        if (user.value.dataUser?.role == "ADMIN") {
-            console.log('role user' , user.dataUser);
-            
+        try {
             const confirm = window.confirm("Bạn có chắc chắn xóa bài viết không?")
             if (confirm) {
                 const { data } = await axios.delete(`/api/posts/${id}`)
                 toast.success("xóa thành công")
             }
-        }
-        if(user.value.dataUser?.role != "ADMIN"){
-            toast.warning("Bạn không có quyền xóa")
-            console.log('error');
-            return;
-            
+        } catch (error: any) {
+            console.log('error', error.response.data);
+            toast.error("Bạn không có quyền xóa bài viết")
+            setTimeout(() => {
+                route.push("/")
+            }, 2000);
+
         }
 
+
+
     }
+
+    // search item list post
     const { register, handleSubmit } = useForm<InpSearch>()
 
     const onSubmit: SubmitHandler<InpSearch> = async (item: InpSearch) => {
         array.title = item.title
         console.log('item', item);
-
         array.page = 0
         setArray({ ...array })
         // console.log('array', array);
@@ -80,25 +83,22 @@ const PostList = () => {
 
 
 
-    // chuyen page
+    // pading list post
     const nextPage = async (index: number) => {
         // console.log("index",);
-
         setPage(index)
         array.page = index
         setArray({ ...array })
         const { data } = await getPostList(array)
         setPostList(data)
     }
-
-
     // page postList 
     let pageCount = [];
     for (let i = 0; i < postList.count / 3; i++) {
         pageCount.push(i)
     }
 
-    // loc theo danh muc 
+    // fitler categories
     const changeCategory = async (categories: any) => {
         array.page = 0
         array.categories = categories
@@ -108,11 +108,6 @@ const PostList = () => {
         console.log('categories', data);
 
     }
-
-
-    // console.log("list", postList);
-
-
     return (
         <div>
 
@@ -277,22 +272,3 @@ const PostList = () => {
 
 PostList.Layout = adminLayout
 export default PostList
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-
-//     const posts = await prisma?.post.findMany({
-//         select: {
-//             id: true,
-//             title: true,
-//             content: true,
-//             categories: true,
-//             image: true
-//         }
-//     })
-
-//     return {
-//         props: {
-//             posts
-//         }
-//     }
-// }

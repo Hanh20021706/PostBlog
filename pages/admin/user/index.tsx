@@ -1,18 +1,33 @@
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import adminLayout from '../../../components/layout/adminLayout'
+import prisma from '../../../lib/prisma'
 
-type Props = {}
 
-const UserList = (props: Props) => {
-  return (
-    <div>
-         <div className="max-w-[80rem]  mx-auto">
+
+interface Posts {
+    users: {
+        id?: number
+        name: string,
+        email: string,
+    }[]
+}
+
+
+const UserList = ({ users }: Posts) => {
+
+
+    return (
+
+
+        <div>
+            <div className="max-w-[80rem]  mx-auto">
                 <div className="flex my-8 justify-between ">
                     <h2 className="font-sans text-2xl font-bold uppercase"> quản lý người dùng </h2>
 
                 </div>
-                
+
 
                 <div>
                     <div className="  mx-auto">
@@ -34,14 +49,38 @@ const UserList = (props: Props) => {
                                                 <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Email
                                                 </th>
-                                            
+                                                <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    ROLE
+                                                </th>
+
                                                 <th scope="col" className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     delete
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
-                                           
+                                            {users.map((item: any, index: number) => (
+                                                <tr key={index}>
+                                                    <td className="px-4 text-center py-4 ">
+                                                        {index + 1}
+                                                    </td>
+                                                    <td className="px-4 text-center py-4 ">
+                                                        {item.name}
+                                                    </td>
+                                                    <td className="px-4 text-center py-4 ">
+                                                        {item.email}
+                                                    </td>
+                                                    <td className="px-4 text-center py-4 ">
+                                                        {item.role}
+                                                    </td>
+
+                                                    <td className="px-4 text-center py-4 ">
+                                                        <button type="button" className=" btn btn-remove text-rose-600">
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -51,19 +90,7 @@ const UserList = (props: Props) => {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div className="">
-                        <Link href="/admin/posts/add">
-                            <a className="sm:ml-3">
-                                <button type="button" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    {/* Heroicon name: solid/check */}
-                                    <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                    Thêm Mới
-                                </button>
-                            </a>
-                        </Link>
-                    </div >
+
                     <div className="box__btn">
 
                         <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
@@ -89,11 +116,32 @@ const UserList = (props: Props) => {
                     </div>
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 
 UserList.Layout = adminLayout
 
 export default UserList
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const users = await prisma.user.findMany({
+        take: 6,
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role : true
+        },
+        orderBy: {
+            id: "desc"
+        }
+    })
+
+    return {
+        props: {
+            users
+        }
+    }
+}

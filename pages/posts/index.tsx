@@ -19,7 +19,7 @@ interface Posts {
 const PostPage = ({ posts }: Posts) => {
     return (
 
-        <div>
+        <div className='z-10'>
             <Head>
                 <title>
                     Danh sách bài viết

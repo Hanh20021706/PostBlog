@@ -19,7 +19,7 @@ export default async function handler(
       }
     })
     if(emailUser){
-      return res.json('email da ton tai')
+      return res.status(404).json('email da ton tai')
     }
 
     // add user

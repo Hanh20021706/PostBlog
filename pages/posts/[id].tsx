@@ -75,11 +75,11 @@ const DetailPost = ({ posts }: Posts) => {
     }, [id])
 
     if(!post){
-        return <div>Loading ....</div>
+        return <div className='mt-[55px]'>Loading ....</div>
     }
 
     return (
-        <div>
+        <div className='mt-[100px]'>
             <Head>
                 <title>
                     Chi tiết bài viết

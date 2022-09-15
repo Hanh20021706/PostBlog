@@ -32,46 +32,30 @@ const AddPost = () => {
         const userPost = async () => {
             const { payload } = await dispatch(getUser())
             console.log('payload', payload);
-
             // console.log("data user" , data);
         }
         userPost()
     }, [])
 
     const onSubmit = async (value: any) => {
-        console.log("value", value);
-        if (user.dataUser?.role == 'ADMIN') {
+        try {
+            const { data } = await axios.post("/api/posts", { ...value, user: user.dataUser.userId })
+            toast.success("thêm thành công bài viết")
             route.push('/admin/posts')
-            console.log('user role', user.role);
+            console.log('data create' , data);
+            
 
-            toast.success("thêm bài viết thành công")
-        }
-        if (user.dataUser?.role !== 'ADMIN') {
-            toast.warning("Hãy đăng ký tài khoản VIP để thêm bài viết")
-
+        } catch (error: any) {
+            console.log('error', error.response.data);
+            toast.error("Đăng nhập tài khoản VIP để thêm bài viết")
             setTimeout(() => {
                 route.push("/")
             }, 2000);
-            console.log('role user', user.role);
-            console.log('error');
-            
-            return;
+            // alert(error.response.data)
+
         }
-        const { data } = await axios.post("/api/posts", { ...value, userId: user.dataUser.id })
-        console.log('data role', user.dataUser);
-        console.log('data', data);
 
-
-        // if(data.dataUser?.role != 'ADMIN'){  
-        //     toast.warning("ban khong co quyen them")
-        //     console.log('error');
-
-        // }
-
-        // if (data) {
-        //     // route.push('/admin/posts')
-        //     toast.success("thêm bài viết thành công")
-        // }
+       
 
     }
     return (
@@ -181,19 +165,3 @@ const AddPost = () => {
 AddPost.Layout = adminLayout
 
 export default AddPost
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//     const posts = await prisma?.post.findMany({
-//         select: {
-//             title: true,
-//             id: true,
-//             content: true
-//         }
-//     })
-
-//     return {
-//         props: {
-//             posts
-//         }
-//     }
-// }

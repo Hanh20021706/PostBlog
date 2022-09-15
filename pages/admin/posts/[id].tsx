@@ -20,28 +20,22 @@ const EditPost = (props: Props) => {
 
 
     const user = useSelector((item: any) => item.user)
-    console.log('user', user);
-
+    // console.log('user', user);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<PostType>()
 
     const onSubmit: SubmitHandler<PostType> = async (post: any) => {
-        console.log(post)
-        if (user.value.dataUser?.role == "ADMIN") {
+        try {
             const { data } = await axios.patch(`/api/posts/${id}`, { title: post.title, content: post.content, image: post.image, categories: post.categories })
-            // console.log("data", data)
             route.push("/admin/posts")
             toast.success("sửa bài viết thành công")
-        }
-        if (user.value.dataUser?.role !== "ADMIN") {
-            toast.warning("Bạn không có quyền sửa")
+            console.log('data edit', data);
+        } catch (error:any) {
+            console.log('error' , error.response.data);
+            toast.error("Bạn không có quyền sửa")
             setTimeout(() => {
-                route.push("/posts")
-             
+                route.push("/")
             }, 2000);
-           
-            console.log('error');
-            return;
         }
 
 
@@ -64,10 +58,6 @@ const EditPost = (props: Props) => {
             userPost()
         }
     }, [id])
-
-
-
-
     return (
         <div>
             <div className="max-w-5xl mx-auto">
@@ -146,10 +136,6 @@ const EditPost = (props: Props) => {
                                                 <option value={"beauty"}> beauty</option>
 
                                             </select>
-                                            {/* <input
-                                                {...register("categories", { required: true})}
-                                                type="text" className="mt-1 px-8 py-2 bg-white border shadow-sm border-gray-300 placeholder-gray-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" /> */}
-
                                         </label>
 
                                     </div>

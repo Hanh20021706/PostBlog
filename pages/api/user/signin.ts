@@ -12,9 +12,6 @@ export default async function handler(
   const user = req.body;
   console.log(user);
   if (req.method === "POST") {
-
-   
-
     const dataUser = await prisma.user.findFirst({
       where: {
         email: user.email,
@@ -23,7 +20,7 @@ export default async function handler(
 
     //  kiem tra user
     if (!user) {
-      return res.status(400).json({
+      return res.status(401 ).json({
         message: "Khong co tai khoan nay",
       });
     }
@@ -31,7 +28,7 @@ export default async function handler(
     // check password cua user
     const match = await bcrypt.compare(user.password, dataUser?.password);
     if (match == false) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: "password khong dung",
       });
     }
@@ -57,14 +54,14 @@ export default async function handler(
     const infoUser = req.headers.cookie;
 
     var cookies = cookie.parse(infoUser || "");
-    console.log("code cookie", cookies.cookieUser);
+    // console.log("code cookie", cookies.cookieUser);
 
     if (cookies.cookieUser) {
       var codeUser = jwt.verify(`${cookies.cookieUser}`, "123456");
 
-      res.json(codeUser);
+      return res.status(200).json(codeUser);
     } else {
-      res.json({ message: "het han cookie" });
+      return res.status(401).json({ message: "het han cookie" });
     }
   }
 }

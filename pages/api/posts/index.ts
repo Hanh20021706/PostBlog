@@ -22,13 +22,30 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const post = req.body;
-  if (req.method === "POST") {                                          
-    const postAdd = await prisma.post.create({
-      data: post,
-    });
+  if (req.method === "POST") {
+    const headerCookie = req.headers.cookie;
+    var cookies = cookie.parse(headerCookie || "");
+    if (cookies.cookieUser) {
+      var codeUser:any = jwt.verify(`${cookies.cookieUser}`, "123456");
+      if (codeUser.dataUser.role == "ADMIN") {
+        const postAdd = await prisma.post.create({
+          data: {
+            categories: post.categories,
+            title: post.title,
+            content: post.content,
+            image: post.image,
+            userId: codeUser.dataUser.id,
+          },
+        });
+        console.log("postAdd", postAdd);
 
-    console.log("post add item", postAdd);
-    return res.status(201).json({ message: "post crate" });
+        return res.status(201).json("them thanh cong");
+      } else {
+        return res.status(404).json("ban khong co quyen");
+      }
+
+      // return res.status(200).json(codeUser);
+    }
   } else {
     console.log("error");
   }
