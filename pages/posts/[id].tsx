@@ -99,7 +99,7 @@ const DetailPost = ({ posts }: Posts) => {
                             </li>
                             <li>
                                 <FacebookShareButton style={{ margin: '10px 0px' }}
-                                    url={'https://post-blog-bice.vercel.app/'}
+                                    url={`https://post-blog-bice.vercel.app/posts/${post.id}`}
                                     quote={'next-share is a social share buttons for your next React apps.'}
                                     hashtag={'#nextshare'}
                                 >
@@ -107,28 +107,28 @@ const DetailPost = ({ posts }: Posts) => {
                                 </FacebookShareButton>
 
                                 <TwitterShareButton style={{ margin: '0px 5px' }}
-                                    url={'https://post-blog-bice.vercel.app/'}
+                                      url={`https://post-blog-bice.vercel.app/posts/${post.id}`}
                                     title={'next-share is a social share buttons for your next React apps.'}
                                 >
                                     <TwitterIcon size={32} round />
                                 </TwitterShareButton>
 
                                 <FacebookMessengerShareButton style={{ margin: '0px 5px' }}
-                                    url={'https://post-blog-bice.vercel.app/'}
+                                      url={`https://post-blog-bice.vercel.app/posts/${post.id}`}
                                     appId={''}
                                 >
                                     <FacebookMessengerIcon size={32} round />
                                 </FacebookMessengerShareButton>
 
                                 <EmailShareButton
-                                    url={'https://post-blog-bice.vercel.app/'}
+                                      url={`https://post-blog-bice.vercel.app/posts/${post.id}`}
                                     subject={'Next Share'}
                                     body="body"
                                 >
                                     <EmailIcon size={32} round />
                                 </EmailShareButton>
                                 <TelegramShareButton style={{ margin: '0px 5px' }}
-                                    url={'https://post-blog-bice.vercel.app/'}
+                                      url={`https://post-blog-bice.vercel.app/posts/${post.id}`}
                                     title={'next-share is a social share buttons for your next React apps.'}
                                 >
                                     <TelegramIcon size={32} round />
