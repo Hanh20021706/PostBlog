@@ -12,10 +12,6 @@ const AdminPage = (props: Props) => {
 
     const dispatch = useDispatch()
 
-    // const userRouter = useSelector((item:any) => item.user)
-    // console.log("userRouter" , userRouter);
-    
-
     const userDetail = async () => {
         const { payload } = await dispatch(getUser())
         console.log("payload", payload);
