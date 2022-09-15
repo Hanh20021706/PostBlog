@@ -61,7 +61,7 @@ export default async function handler(
       // console.log("cookieUser5555555555555" , codeUser);
 
       // return res.status(200).json(codeUser);
-      if (codeUser.dataUser.role == "ADMIM") {
+      if (codeUser.dataUser.role == "ADMIN") {
         if (data) {
           const editPost = await prisma.post.update({
             where: { id: Number(idPost) },

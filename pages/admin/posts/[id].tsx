@@ -34,7 +34,7 @@ const EditPost = (props: Props) => {
             console.log('error' , error.response.data);
             toast.error("Bạn không có quyền sửa")
             setTimeout(() => {
-                route.push("/")
+                // route.push("/")
             }, 2000);
         }
 
