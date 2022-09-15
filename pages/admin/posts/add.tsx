@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import adminLayout from '../../../components/layout/adminLayout'
-import { SubmitHandler, useForm } from "react-hook-form";
-import { PostType } from '../../../type/post';
+import {  useForm } from "react-hook-form";
 import axios from 'axios'
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../../redux/useSlice';

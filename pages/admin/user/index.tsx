@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next'
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import adminLayout from '../../../components/layout/adminLayout'
 import prisma from '../../../lib/prisma'

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "./../../../lib/prisma";
-import { deleteCookie, setCookie } from "cookies-next";
+import {  setCookie } from "cookies-next";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
 const bcrypt = require("bcrypt");

@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { getCookie } from "cookies-next";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "./../../../lib/prisma";
 import jwt from "jsonwebtoken";
@@ -11,7 +10,6 @@ import {
   listPostParam,
   listViews,
 } from "../../../serverPrisma/post";
-import { verify } from "crypto";
 
 interface QueryParam {
   [key: string]: QueryParam | string;

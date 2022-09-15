@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Link from 'next/link'
-import { deleteCookie, getCookie } from 'cookies-next';
+import { deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import style from '../styles/Home.module.css'

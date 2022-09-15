@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import { deleteCookie, setCookie } from "cookies-next";
-import cookie from "cookie";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
